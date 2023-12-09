@@ -1,0 +1,39 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>HTML 5 Boilerplate</title>
+    
+
+    <style>
+    
+     .lead {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 6px;
+      padding-right: 6px;
+      margin-top: 10px;
+      background-colr: #f6f6f6;
+      width: 100px;
+    }
+    
+
+    </style>
+
+  </head>
+  <body>
+  <h1>All of our leads</h1>
+  {% for lead in leads %}
+        <div class="lead">
+           {{ lead.first_name}}
+        </div>
+  {% endfor %}
+
+
+	    
+  </body>
+</html>
