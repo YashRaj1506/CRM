@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import home_page
+from .views import lead_list
 
-app_name= "leads"
+app_name = 'leads'
 
 urlpatterns = [
-  path('', "templates/second_page.html")
+  path('', lead_list, name="second_page")
 ]
+
