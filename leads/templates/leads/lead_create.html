@@ -13,7 +13,12 @@
   <body>
     <a href="/leads">Go back to leads</a>
   <h1>create a new lead</h1>
-  
+  <form method="post">
+  {% csrf_token %}
+  #action sends 
+  {{ form.as_p }}
+  <button type="submit">Submit</submit>
+  </form>
 	    
   </body>
 </html>
