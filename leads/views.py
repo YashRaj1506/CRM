@@ -68,7 +68,7 @@ def lead_update(request, pk):
          lead.first_name = first_name
          lead.last_name = last_name
          lead.age = age
-         lead.save()
+         lead.save(Lead)
          #form.save does the exact thing as above lines
          return redirect("/leads")
    
