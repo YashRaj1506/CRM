@@ -57,4 +57,24 @@ def lead_create(request):
 
 def lead_update(request, pk):
     Lead = lead.objects.get(id=pk)
+    form = LeadForm()
+   #first setting form empty by leaving leadform empty
+    if request.method == "POST":
+      form = LeadForm(request.POST)
+      if form.is_valid():
+         first_name = form.cleaned_data['first_name']
+         last_name = form.cleaned_data['last_name']
+         age = form.cleaned_data['age']
+         lead.first_name = first_name
+         lead.last_name = last_name
+         lead.age = age
+         lead.save()
+         #form.save does the exact thing as above lines
+         return redirect("/leads")
+   
+    context = {
+      "form": form,
+      "lead": Lead
+    }
+    return render (request, "leads/lead_update.html", context)
 
