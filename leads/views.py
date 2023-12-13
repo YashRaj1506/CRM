@@ -3,6 +3,10 @@ from django.http import HttpResponse
 from .models import lead, Agent
 from .forms import LeadForm , LeadModelForm
 
+
+def landing_page(request):
+   return render(request, "landing.html")
+
 def lead_list(request):
   leads = lead.objects.all()
   #leads is now a list of data querysets
@@ -56,25 +60,49 @@ def lead_create(request):
 
 
 def lead_update(request, pk):
-    Lead = lead.objects.get(id=pk)
-    form = LeadForm()
-   #first setting form empty by leaving leadform empty
-    if request.method == "POST":
-      form = LeadForm(request.POST)
+   Lead = lead.objects.get(id = pk)
+   form = LeadModelForm(instance=Lead)
+   if request.method == "POST":
+      form = LeadModelForm(request.POST, instance=Lead)
       if form.is_valid():
-         first_name = form.cleaned_data['first_name']
-         last_name = form.cleaned_data['last_name']
-         age = form.cleaned_data['age']
-         lead.first_name = first_name
-         lead.last_name = last_name
-         lead.age = age
-         lead.save(Lead)
-         #form.save does the exact thing as above lines
+         form.save()
          return redirect("/leads")
-   
-    context = {
+   context = {
       "form": form,
       "lead": Lead
-    }
-    return render (request, "leads/lead_update.html", context)
+     }
+   return render (request, "leads/lead_update.html", context)
+
+
+def lead_delete(request, pk):
+   Lead = lead.objects.get(id = pk)
+   Lead.delete()
+   return redirect("/leads")
+
+
+
+# def lead_update(request, pk):
+#     Lead = lead.objects.get(id=pk)
+#     form = LeadForm()
+#    #first setting form empty by leaving leadform empty
+#     if request.method == "POST":
+#       form = LeadForm(request.POST)
+#       if form.is_valid():
+#          first_name = form.cleaned_data['first_name']
+#          last_name = form.cleaned_data['last_name']
+#          age = form.cleaned_data['age']
+#          Lead.first_name = first_name
+#          Lead.last_name = last_name
+#          Lead.age = age
+#          Lead.save()
+#          #form.save does the exact thing as above lines
+#          return redirect("/leads")
+   
+#     context = {
+#       "form": form,
+#       "lead": Lead
+#     }
+#     return render (request, "leads/lead_update.html", context)
+
+    
 
