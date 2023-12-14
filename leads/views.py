@@ -1,11 +1,21 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect, reverse
 from django.http import HttpResponse
+from django.views.generic import TemplateView, ListView , DetailView, CreateView, UpdateView
 from .models import lead, Agent
 from .forms import LeadForm , LeadModelForm
 
 
 def landing_page(request):
    return render(request, "landing.html")
+
+
+#classview example
+
+class LeadListView(ListView):
+   template_name="leads/lead_list.html"
+   queryset = lead.objects.all() #here in function we need to create dictionary context but queryset is a defualt  context with name object_name.
+   
+
 
 def lead_list(request):
   leads = lead.objects.all()
@@ -17,6 +27,11 @@ def lead_list(request):
   #how to understand the dictionary logic and visuallise it?
   return render(request, "leads/lead_list.html" , context)
 
+class LeadDetailView(DetailView):
+   template_name="leads/lead_details.html"
+   queryset = lead.objects.all() #here in function we need to create dictionary context but queryset is a defualt  context with name object_name.
+   context_object_name = "lead"
+
 def lead_detail(request, pk):
     print(pk)
     Lead = lead.objects.get(id=pk)
@@ -26,6 +41,13 @@ def lead_detail(request, pk):
     }
     
     return render(request, "leads/lead_details.html", context)  
+
+class LeadCreateView(CreateView):
+   template_name="leads/lead_create.html"
+   form_class = LeadModelForm
+   
+   def get_success_url(self):
+      return "/leads"
 
 
 def lead_create(request):
@@ -72,6 +94,8 @@ def lead_update(request, pk):
       "lead": Lead
      }
    return render (request, "leads/lead_update.html", context)
+
+
 
 
 def lead_delete(request, pk):
