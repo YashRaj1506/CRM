@@ -132,3 +132,5 @@ STATIC_ROOT = "static_root"
 AUTH_USER_MODEL = 'leads.User'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
