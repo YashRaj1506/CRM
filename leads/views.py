@@ -1,9 +1,24 @@
+
 from django.core.mail import send_mail
 from django.shortcuts import render , redirect, reverse
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView , DetailView, CreateView, UpdateView
 from .models import lead, Agent
-from .forms import LeadForm , LeadModelForm
+from .forms import LeadForm , LeadModelForm, CustomUserCreationForm
+from django.views import generic
+#from django.contrib.auth.forms import UserCreationForm
+
+class SignupView(generic.CreateView):
+   template_name="registration/signup.html"
+   form_class = CustomUserCreationForm
+   
+   def get_success_url(self):
+      return "/login"
+
+   
+
+   
+
 
 
 def landing_page(request):

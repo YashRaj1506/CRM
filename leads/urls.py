@@ -15,4 +15,5 @@ urlpatterns = [
   path('create/', lead_create, name="lead-create"),
   
   
+  
 ]
