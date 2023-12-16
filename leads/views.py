@@ -15,11 +15,6 @@ class SignupView(generic.CreateView):
    def get_success_url(self):
       return "/login"
 
-   
-
-   
-
-
 
 def landing_page(request):
    return render(request, "landing.html")
@@ -156,5 +151,13 @@ def lead_delete(request, pk):
 #     }
 #     return render (request, "leads/lead_update.html", context)
 
-    
+
+def lead_review(request):
+
+   leads = lead.objects.all()
+   #leads is now a list of data querysets
+   context = {
+    "leads": leads
+   } 
+   return render (request, "leads/lead_review.html", context)
 
